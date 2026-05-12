@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -23,7 +24,7 @@ public class PlayerController : MonoBehaviour
 void Awake()
     {
         Health = GetComponent<Vida>();
-        jump = InputSystem.actions.FindAction("Jump");
+        jump = InputActions.FindAction("Jump");
         
     }
     // Start is called before the first frame update
@@ -35,7 +36,7 @@ void Awake()
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
     
         if (jump.IsPressed() && isOnGround && !gameOver)
@@ -62,6 +63,7 @@ void Awake()
             playerAnim.SetBool("Death_b", true);
             dirtParticle.Stop();
             explosionParticle.Play();
+            SceneManager.LoadScene("GameOver");
             
         }     
     }
